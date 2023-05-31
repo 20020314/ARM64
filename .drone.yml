@@ -1,0 +1,26 @@
+kind: pipeline
+type: docker
+name: build-and-publish
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+ - name: Build
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: chaikair
+      password:
+        from_secret: 389609066
+      repo: chaikair/ttydweb-arm64
+      registry: docker.io
+      dockerfile: Dockerfile
+      context: .
+      tags:
+        - latest
+
+trigger:
+  branch:
+    - master
